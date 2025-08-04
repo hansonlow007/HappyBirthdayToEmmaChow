@@ -719,7 +719,7 @@ body {
     }
     
     .main-photo {
-        height: 180px;
+        height: 100%;
     }
     
     .small-photo {

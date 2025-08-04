@@ -15,32 +15,20 @@ let isMusicPlaying = false;
 const bgMusic = document.getElementById('bgMusic');
 const musicToggle = document.getElementById('musicToggle');
 
-// 设置初始状态
-if (musicToggle) {
-    musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-    musicToggle.classList.add('paused');
-}
-
 function initializeMusic() {
     // 由於瀏覽器政策，需要用戶互動才能播放音樂
     musicToggle.addEventListener('click', function() {
         if (isMusicPlaying) {
             bgMusic.pause();
-            musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-            musicToggle.classList.remove('playing');
-            musicToggle.classList.add('paused');
+            musicToggle.textContent = '🔇';
             isMusicPlaying = false;
         } else {
             bgMusic.play().then(() => {
-                musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>';
-                musicToggle.classList.remove('paused');
-                musicToggle.classList.add('playing');
+                musicToggle.textContent = '🎵';
                 isMusicPlaying = true;
             }).catch(error => {
                 console.log('音樂播放失敗:', error);
-                musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-                musicToggle.classList.remove('music');
-                musicToggle.classList.add('paused');
+                musicToggle.textContent = '🔇';
                 showMusicError();
             });
         }
@@ -49,23 +37,17 @@ function initializeMusic() {
     // 監聽音樂播放狀態
     bgMusic.addEventListener('ended', function() {
         isMusicPlaying = false;
-        musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-        musicToggle.classList.remove('playing');
-        musicToggle.classList.add('paused');
+        musicToggle.textContent = '🔇';
     });
 
     bgMusic.addEventListener('pause', function() {
         isMusicPlaying = false;
-        musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-        musicToggle.classList.remove('playing');
-        musicToggle.classList.add('paused');
+        musicToggle.textContent = '🔇';
     });
 
     bgMusic.addEventListener('play', function() {
         isMusicPlaying = true;
-        musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>';
-        musicToggle.classList.remove('paused');
-        musicToggle.classList.add('playing');
+        musicToggle.textContent = '🎵';
     });
 
     // 檢查音樂文件是否存在
@@ -179,37 +161,6 @@ function showSection(sectionId) {
     }
 }
 
-// 顯示音樂播放提示
-function showMusicPrompt() {
-    const prompt = document.createElement('div');
-    prompt.className = 'music-prompt';
-    prompt.innerHTML = `
-        <div class="prompt-content">
-            <p>🎵 點擊右上角的音樂按鈕來播放背景音樂</p>
-            <button onclick="this.parentElement.parentElement.remove()">知道了</button>
-        </div>
-    `;
-    prompt.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(139, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        z-index: 1001;
-        text-align: center;
-    `;
-    document.body.appendChild(prompt);
-    
-    // 3秒後自動消失
-    setTimeout(() => {
-        if (prompt.parentElement) {
-            prompt.remove();
-        }
-    }, 3000);
-}
 
 // 創建更多浮動愛心
 function createFloatingHearts() {
@@ -229,21 +180,24 @@ function createFloatingHearts() {
 
 // 照片點擊處理
 function addPhotoClickHandlers() {
-    const photoItems = document.querySelectorAll('.photo-placeholder img');
-    photoItems.forEach((photo, index) => {
-        photo.addEventListener('click', function() {
-            showPhotoModal(this.src);
+    const photoItems = document.querySelectorAll('.photo-placeholder');
+    photoItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            showPhotoModal(index + 1);
         });
     });
 }
 
 // 顯示照片模態框
-function showPhotoModal(photoSrc) {
+function showPhotoModal(photoNumber) {
     const modal = document.createElement('div');
     modal.className = 'photo-modal';
     
+    // 获取实际的照片路径
+    const photoPath = `Images/Emma01.jpg`;
+    
     modal.innerHTML = `
-        <img src="${photoSrc}" alt="Emma Chow" style="max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 10px;">
+        <img src="${photoPath}" alt="Emma Chow" style="max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 10px;">
     `;
     
     modal.style.cssText = `
@@ -392,43 +346,12 @@ if ('ontouchstart' in window) {
             opacity: 1;
         }
         
-        /* 音乐可视化 */
-        .music-visualizer {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            z-index: 1000;
-            animation: musicPulse 1s ease-in-out infinite alternate;
-        }
-        
+      
         @keyframes musicPulse {
             from { transform: scale(1); }
             to { transform: scale(1.1); }
         }
         
-        /* 生日倒计时 */
-        .birthday-countdown {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
     `;
     document.head.appendChild(touchStyle);
     
@@ -438,19 +361,7 @@ if ('ontouchstart' in window) {
         element.classList.add('touch-feedback');
     });
     
-    // 添加长按提示
-    const hint = document.createElement('div');
-    hint.className = 'long-press-hint';
-    hint.textContent = '💡 长按生日日期有惊喜！';
-    document.body.appendChild(hint);
-    
-    // 显示提示
-    setTimeout(() => {
-        hint.classList.add('show');
-        setTimeout(() => {
-            hint.classList.remove('show');
-        }, 3000);
-    }, 2000);
+   
     
     // 添加音乐可视化
     const visualizer = document.createElement('div');
@@ -472,40 +383,8 @@ if ('ontouchstart' in window) {
         };
     }
     
-    // 添加生日倒计时
-    const countdown = document.createElement('div');
-    countdown.className = 'birthday-countdown';
-    document.body.appendChild(countdown);
-    
-    // 计算倒计时
-    function updateCountdown() {
-        const now = new Date();
-        const birthday = new Date('2025-08-27');
-        const diff = birthday - now;
-        
-        if (diff > 0) {
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            countdown.innerHTML = `🎂 ${days}天${hours}小时`;
-        } else {
-            countdown.innerHTML = '🎉 生日快乐！';
-        }
     }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 60000); // 每分钟更新一次
-}
 
-// 頁面可見性變化時暫停音樂
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden && isMusicPlaying) {
-        bgMusic.pause();
-        musicToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-        musicToggle.classList.remove('playing');
-        musicToggle.classList.add('paused');
-        isMusicPlaying = false;
-    }
-});
 
 // 添加一些隨機的互動效果
 setInterval(() => {
@@ -594,6 +473,37 @@ pulseStyle.textContent = `
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
+    }
+    
+    .photo-swipe-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .swipe-photo {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+    
+    .swipe-indicator {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 0.9rem;
+        opacity: 0.8;
     }
 `;
 document.head.appendChild(pulseStyle);
@@ -695,14 +605,34 @@ function initializeBirthdayAnimations() {
 
 // 照片滑动功能
 function initializePhotoSwipe() {
-    // 移除滑动功能，保持简单的照片查看
     const photos = document.querySelectorAll('.photo-placeholder img');
+    let currentPhotoIndex = 0;
     
-    photos.forEach((photo) => {
+    // 创建滑动容器
+    const swipeContainer = document.createElement('div');
+    swipeContainer.className = 'photo-swipe-container';
+    swipeContainer.innerHTML = `
+        <img class="swipe-photo" src="" alt="Emma Chow">
+
+    `;
+    document.body.appendChild(swipeContainer);
+    
+    const swipePhoto = swipeContainer.querySelector('.swipe-photo');
+    const indicator = swipeContainer.querySelector('.swipe-indicator');
+    
+    // 为每张照片添加滑动功能
+    photos.forEach((photo, index) => {
         photo.addEventListener('click', function() {
-            // 直接显示照片，不添加滑动功能
-            showPhotoModal(this.src);
+            currentPhotoIndex = index;
+            swipePhoto.src = this.src;
+            swipeContainer.style.display = 'flex';
+            indicator.style.display = 'block';
         });
+    });
+    
+    // 点击关闭
+    swipeContainer.addEventListener('click', function() {
+        this.style.display = 'none';
     });
 }
 
@@ -762,7 +692,6 @@ function showBirthdayMessage() {
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         ">
             🎂 Happy Birthday Emma! 🎂<br>
-            🎉 生日快乐 Emma! 🎉
         </div>
     `;
     document.body.appendChild(message);
