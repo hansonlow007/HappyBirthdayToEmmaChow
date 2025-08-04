@@ -24,7 +24,7 @@ function initializeMusic() {
             isMusicPlaying = false;
         } else {
             bgMusic.play().then(() => {
-                musicToggle.textContent = '🎵';
+                musicToggle.textContent = '';
                 isMusicPlaying = true;
             }).catch(error => {
                 console.log('音樂播放失敗:', error);
