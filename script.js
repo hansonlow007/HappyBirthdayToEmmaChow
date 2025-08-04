@@ -20,7 +20,7 @@ function initializeMusic() {
     musicToggle.addEventListener('click', function() {
         if (isMusicPlaying) {
             bgMusic.pause();
-            musicToggle.textContent = '🔇';
+            musicToggle.textContent = '❚❚';
             isMusicPlaying = false;
         } else {
             bgMusic.play().then(() => {
@@ -28,7 +28,7 @@ function initializeMusic() {
                 isMusicPlaying = true;
             }).catch(error => {
                 console.log('音樂播放失敗:', error);
-                musicToggle.textContent = '🔇';
+                musicToggle.textContent = '❚❚';
                 showMusicError();
             });
         }
@@ -37,12 +37,12 @@ function initializeMusic() {
     // 監聽音樂播放狀態
     bgMusic.addEventListener('ended', function() {
         isMusicPlaying = false;
-        musicToggle.textContent = '🔇';
+        musicToggle.textContent = '❚❚';
     });
 
     bgMusic.addEventListener('pause', function() {
         isMusicPlaying = false;
-        musicToggle.textContent = '🔇';
+        musicToggle.textContent = '❚❚';
     });
 
     bgMusic.addEventListener('play', function() {
@@ -165,7 +165,7 @@ function showSection(sectionId) {
 // 創建更多浮動愛心
 function createFloatingHearts() {
     const heartsContainer = document.querySelector('.floating-hearts');
-    const hearts = ['💖', '💕', '💗', '💙', '💚', '💛', '💜', '💙', '💚', '💛', '💜'];
+    const hearts = ['💖', '💕', '💗', '🎂', '💚', '💛', '💜', '💙', '✨', '💛', '💜'];
     
     // 創建更多愛心元素
     for (let i = 0; i < 15; i++) {
@@ -188,38 +188,7 @@ function addPhotoClickHandlers() {
     });
 }
 
-// 顯示照片模態框
-function showPhotoModal(photoNumber) {
-    const modal = document.createElement('div');
-    modal.className = 'photo-modal';
-    
-    // 获取实际的照片路径
-    const photoPath = `Images/Emma01.jpg`;
-    
-    modal.innerHTML = `
-        <img src="${photoPath}" alt="Emma Chow" style="max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 10px;">
-    `;
-    
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        animation: fadeIn 0.3s ease-out;
-        cursor: pointer;
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // 点击任意位置关闭模态框
-    modal.addEventListener('click', () => modal.remove());
-}
+
 
 // 添加淡入動畫
 const style = document.createElement('style');
@@ -531,23 +500,8 @@ function initializeMobileInteractions() {
             clearTimeout(pressTimer);
         });
     }
-    
-    // 双击照片区域显示惊喜
-    const photoSection = document.querySelector('.photo-section');
-    if (photoSection) {
-        let lastTap = 0;
-        photoSection.addEventListener('touchend', function(e) {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            if (tapLength < 500 && tapLength > 0) {
-                // 双击检测
-                showSurpriseMessage();
-                createConfetti();
-            }
-            lastTap = currentTime;
-        });
-    }
-    
+ 
+
     // 摇晃手机触发特效
     if ('DeviceMotionEvent' in window) {
         let lastUpdate = 0;
@@ -681,7 +635,7 @@ function showBirthdayMessage() {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            background: #ff6b6b);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -691,7 +645,7 @@ function showBirthdayMessage() {
             font-size: 1.2rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         ">
-            🎂 Happy Birthday Emma! 🎂<br>
+             Happy Birthday Emma! <br>
         </div>
     `;
     document.body.appendChild(message);
