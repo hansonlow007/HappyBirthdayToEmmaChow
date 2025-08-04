@@ -45,10 +45,7 @@ function initializeMusic() {
         musicToggle.textContent = '❚❚';
     });
 
-    bgMusic.addEventListener('play', function() {
-        isMusicPlaying = true;
-        musicToggle.textContent = '🎵';
-    });
+
 
     // 檢查音樂文件是否存在
     bgMusic.addEventListener('error', function() {
@@ -635,7 +632,7 @@ function showBirthdayMessage() {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #ff6b6b);
+            background:  #ff6b6b;
             color: white;
             padding: 20px;
             border-radius: 15px;
