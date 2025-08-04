@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Emma Chow</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 背景音樂 -->
+    <audio id="bgMusic" loop>
+        <source src="眼淺.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- 音樂控制按鈕 -->
+    <div class="music-control">
+        <button id="musicToggle" class="music-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                <rect x="14" y="4" width="4" height="16" rx="1"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- 開場畫面 -->
+    <section id="opening" class="section active">
+        <div class="container">
+            <div class="birthday-card">
+                <div class="card-header">
+                    <h1 class="main-title">HAPPY BIRTHDAY</h1>
+                    <h2 class="name-title">Emma Chow</h2>
+                </div>
+                
+                <div class="card-content">
+                    <div class="left-content">
+                        <div class="birthday-message">
+                            <p>Happy Birthday, My Beloved Sis!</p>
+                            <p><i>You've always been my biggest supporter and best friend. Thank you for being you - kind, strong, and full of love. May your days be filled with joy, laughter and all your favorite things.</i></p>
+                            <p class="love-signature">Love you always. ❤️</p>
+                        </div>
+                    </div>
+                    
+                    <div class="right-content">
+                        <div class="date-display">28.08.2025</div>
+                        <div class="calendar">
+                            <h3 class="month-title">August</h3>
+                            <div class="calendar-grid">
+                                <div class="weekdays">
+                                    <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                                </div>
+                                <div class="days">
+                                    <span></span><span></span><span></span><span></span><span>01</span><span class="weekend">02</span><span class="weekend">03</span>
+                                    <span>04</span><span>05</span><span>06</span><span>07</span><span>08</span><span class="weekend">09</span><span class="weekend">10</span>
+                                    <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span class="weekend">16</span><span class="weekend">17</span>
+                                    <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span class="weekend">23</span><span class="weekend">24</span>
+                                    <span>25</span><span>26</span><span>27</span><span class="birthday">❤️</span><span>29</span><span class="weekend">30</span><span class="weekend">31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-section">
+                    <div class="main-photo">
+                        <div class="photo-placeholder">
+                            <img src="Images/Emma02.png" alt="Emma Chow">
+                        </div>
+                    </div>
+                    <div class="side-photos">
+                        <div class="small-photo">
+                            <div class="photo-placeholder">
+                                <img src="Images/05.gif" alt="Birthday GIF">
+                            </div>
+                        </div>
+                        <div class="small-photo">
+                            <div class="photo-placeholder">
+                                <img src="Images/06.gif" alt="Birthday GIF">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="footer-text">HAPPY BIRTHDAY 2025</div>
+                    <div class="signature">BY HANSON LOW</div>
+                </div>
+                
+                <button class="explore-btn" onclick="showSection('video')">Watch Special Video</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 影片區段 -->
+    <section id="video" class="section">
+        <div class="container">
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="birthdayVideo" controls>
+                        <source src="birthday02.mp4" type="video/mp4">
+                        <source src="your-video.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                </div>
+                <div class="video-message">
+                    <p>祝我最棒的姐姐 HAPPY BIRTHDAY 生日快樂 🎂</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="showSection('opening')">Back to Card</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 浮動愛心 -->
+    <div class="floating-hearts">
+        <span>💖</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>💓</span>
+    
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
