@@ -329,11 +329,7 @@ if ('ontouchstart' in window) {
     
    
     
-    // 添加音乐可视化
-    const visualizer = document.createElement('div');
-    visualizer.className = 'music-visualizer';
-    visualizer.innerHTML = '🎵';
-    document.body.appendChild(visualizer);
+
     
     // 音乐播放时显示可视化
     const musicToggle = document.getElementById('musicToggle');
@@ -623,61 +619,3 @@ function shakeEffect() {
     }
 }
 
-// 生日消息
-function showBirthdayMessage() {
-    const message = document.createElement('div');
-    message.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background:  #ff6b6b;
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            z-index: 1001;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        ">
-             Happy Birthday Emma! <br>
-        </div>
-    `;
-    document.body.appendChild(message);
-    
-    setTimeout(() => {
-        message.remove();
-    }, 3000);
-}
-
-// 惊喜消息
-function showSurpriseMessage() {
-    const message = document.createElement('div');
-    message.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(45deg, #4d96ff, #6bcf7f);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            z-index: 1001;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        ">
-             惊喜！ <br>
-            你发现了隐藏功能！
-        </div>
-    `;
-    document.body.appendChild(message);
-    
-    setTimeout(() => {
-        message.remove();
-    }, 2000);
-} 
